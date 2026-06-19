@@ -1,5 +1,9 @@
 ---
 description: Analyze an implemented feature spec and produce the integration test scenarios as a CSV. Pure analysis — no user interaction, no tool execution.
+handoffs:
+  - label: Clarify Manual Test Procedure
+    agent: testkit.clarify
+    prompt: The test_cases.csv is written. Clarify with me how each scenario is run manually and capture the oracles.
 ---
 
 ## User Input
@@ -50,5 +54,6 @@ automated.
 
 ## Next Actions
 
-End by printing a one-line summary (count by category) and suggest:
-`/testkit.clarify <spec-dir>`.
+End by printing a one-line summary (count by category). The transition to the
+next stage is the declared **handoff** (`Clarify Manual Test Procedure`) — do not
+rely on prose suggestions to chain stages.

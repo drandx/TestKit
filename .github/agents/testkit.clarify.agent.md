@@ -1,5 +1,9 @@
 ---
 description: Interactively clarify how a human runs these tests manually, capturing inputs and pass/fail oracles into a durable memory file. The ONLY user-facing TestKit agent.
+handoffs:
+  - label: Discover Tools & Generate Scripts
+    agent: testkit.discover
+    prompt: test-memory.md is written. Validate the scenario-scoped tools_required and generate one PowerShell script per manual step.
 ---
 
 ## User Input
@@ -51,5 +55,6 @@ scenario id: `procedure`, `inputs`, `oracle` (pass and fail signals),
 
 ## Next Actions
 
-End by listing the union of all `tools_required` so the user can sanity-check it,
-then suggest: `/testkit.discover <spec-dir>`.
+End by listing the union of all `tools_required` so the user can sanity-check it
+before taking the declared **handoff** (`Discover Tools & Generate Scripts`). The
+handoff is not `send: true` — the user reviews the tools list first.

@@ -1,5 +1,9 @@
 ---
 description: Validate that every tool required by the test memory is reachable, then write one small independent PowerShell script per manual step. Non-interactive.
+handoffs:
+  - label: Run Test Scenarios
+    agent: testkit.run
+    prompt: tools-report.md and scripts are ready and NO scenario is BLOCKED. Execute every runnable scenario against its oracle.
 ---
 
 ## User Input
@@ -46,6 +50,10 @@ PowerShell script.
 - If any required tool is unreachable, mark affected scenario ids **BLOCKED** in
   the report and do not fabricate a workaround.
 
-## Next Actions
+## Handoff Gate
 
-Suggest `/testkit.run <spec-dir>` — but only if no scenario is BLOCKED.
+The `Run Test Scenarios` handoff is declared but is **not** `send: true`. You MUST
+NOT take it if any scenario is BLOCKED: instead, halt and print the blocked
+scenario ids and the unreachable tool for each. The run resumes only after the
+user resolves the blocker and re-runs this agent. A declared handoff the agent
+refuses to traverse is the block-on-blocked gate.
