@@ -30,3 +30,11 @@
 ## Union of tools_required (sanity-check before Discovery)
 
 -
+
+## Decision Log
+
+> Append-only record of choices this stage made that the user should be able to
+> audit: questions asked and how the user answered, assumptions taken, and
+> ambiguities resolved. One entry per decision; never rewrite a prior entry.
+
+- [<TC-id or "global">] <decision> — rationale: <why>

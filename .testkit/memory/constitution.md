@@ -45,3 +45,12 @@ blocked — never silently dropped and never counted as a failure.
 
 Results MUST reflect reality: a failure carries its output, a skip is reported as
 blocked with its reason, and a pass is asserted only when the oracle is met.
+
+## VIII. Decisions are recorded (MUST)
+
+Every stage MUST record the choices it made in the `Decision Log` of the artifact
+it writes — questions asked and answered, assumptions taken, ambiguities resolved,
+and why anything was marked BLOCKED or FAILED. The log is append-only: a prior
+entry is never rewritten. A decision that lives only in conversation is a Principle
+II violation. (Scenarios records its log in the `test_cases.decisions.md` companion
+because its primary artifact is a CSV.)

@@ -61,6 +61,10 @@ Write `<spec-dir>/test-memory.md` from `.testkit/templates/test-memory.md`, per
 scenario id: `procedure`, `inputs`, `oracle` (pass and fail signals),
 `tools_required` (scenario-scoped only), `setup`, `teardown`.
 
+Fill the `Decision Log` section append-only with every question you asked, how
+the user answered, and each ambiguity you resolved — this is the audit trail of
+the one interactive stage (Constitution VIII).
+
 ## Next Actions
 
 End by listing the union of all `tools_required` so the user can sanity-check it

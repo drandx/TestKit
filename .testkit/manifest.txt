@@ -8,6 +8,7 @@
 .github/agents/testkit.run.agent.md
 .testkit/memory/constitution.md
 .testkit/templates/test_cases.csv
+.testkit/templates/test_cases.decisions.md
 .testkit/templates/test-memory.md
 .testkit/templates/tools-report.md
 .testkit/templates/test-results.md

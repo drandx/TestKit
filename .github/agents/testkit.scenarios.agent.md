@@ -63,6 +63,11 @@ automated.
   these ids — never renumber existing ids.
 - No `expected_result` may be vague ("works correctly"); it must be observable —
   a status, record state, message, HTTP code, or row count.
+- `<spec-dir>/test_cases.decisions.md` from
+  `.testkit/templates/test_cases.decisions.md` — the append-only Decision Log of
+  why behaviors became (or did not become) scenarios and how each oracle was made
+  observable (Constitution VIII). The CSV cannot hold prose, so the log lives in
+  this companion.
 
 ## Next Actions
 

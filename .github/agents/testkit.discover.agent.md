@@ -58,6 +58,8 @@ PowerShell script.
   reachability table, plus per scenario id the scripts and run order.
 - If any required tool is unreachable, mark affected scenario ids **BLOCKED** in
   the report and do not fabricate a workaround.
+- Fill the report's `Decision Log` append-only with how each tool's reachability
+  was judged and why any scenario was marked BLOCKED (Constitution VIII).
 
 ## Handoff Gate
 

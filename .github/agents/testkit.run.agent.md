@@ -47,3 +47,7 @@ Write `<spec-dir>/test-results.md` from `.testkit/templates/test-results.md`: pe
 id — PASS / FAIL / BLOCKED, observed value, expected value, command(s) run. End
 with a summary line: passed / failed / blocked counts. Report faithfully — a
 failure carries its output, a skip is reported as blocked with the reason.
+
+Fill the `Decision Log` section append-only with how an oracle was applied to
+decide a PASS/FAIL, why a scenario was treated as BLOCKED, and any script defect
+noted for Discovery (Constitution VIII).

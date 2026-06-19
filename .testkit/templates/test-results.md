@@ -12,3 +12,12 @@
 - Passed:
 - Failed:
 - Blocked:
+
+## Decision Log
+
+> Append-only record of choices this stage made that the user should be able to
+> audit: how an oracle was applied to decide PASS/FAIL, why a scenario was
+> treated as BLOCKED, and any script defect noted for Discovery. Never rewrite a
+> prior entry.
+
+- [<TC-id or "global">] <decision> — rationale: <why>
