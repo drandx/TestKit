@@ -50,13 +50,33 @@ no controller agent; the pipeline is the handoff chain.
    (independent scenarios), never across stages.
 5. **Scripts mirror manual steps 1:1.** One `.ps1` per manual action, runnable
    standalone, no cleverness.
+6. **The constitution is authority.** `.testkit/memory/constitution.md` holds the
+   MUST principles; each agent loads it and treats a violation as CRITICAL. Rules
+    1–5 above are enforced there, not just described here.
+
+## Enforcement mechanics
+
+- **`tools:` scoping** in each agent's frontmatter enforces posture at the
+  platform level, not just in prose: Scenarios/Clarify get `read, search, edit`
+  (no `execute`); Discovery/Run add `execute`; the front door is `read`-only.
+- **`check-prerequisites.ps1`** is each stage's first step — it resolves the
+  feature directory and asserts the required upstream artifacts exist, so a stage
+  fails fast instead of running on missing input.
+
+## Caveat: handoffs on the CLI
+
+`handoffs:` is documented primarily for VS Code, and Copilot CLI support has been
+in flux (see github/copilot-cli#1195). If your CLI build ignores handoffs, the
+chain still works — invoke each stage manually (`/testkit.clarify <spec-dir>`,
+etc.); the file contract makes the stages composable either way.
 
 ## Layout
 
 ```
 .github/agents/          testkit (front door) + four stage agents (Copilot CLI agent files)
+.testkit/memory/         constitution.md (non-negotiable principles)
 .testkit/templates/      artifact templates (the contract)
-.testkit/scripts/powershell/  _template.ps1 for per-step scripts
+.testkit/scripts/powershell/  check-prerequisites.ps1 + _template.ps1
 ```
 
 ## Roles at a glance

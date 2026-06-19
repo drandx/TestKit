@@ -1,5 +1,6 @@
 ---
-description: Execute every test scenario by running the Discovery scripts in order, evaluate each against its oracle, and write a results report.
+description: 'Execute every test scenario by running the Discovery scripts in order, evaluate each against its oracle, and write a results report.'
+tools: ['read', 'edit', 'execute']
 ---
 
 ## User Input
@@ -22,6 +23,13 @@ defined upstream. You do not invent new steps or new tools.
   your own judgment of "looks fine."
 - **DO NOT EDIT SCRIPTS**: if a `.ps1` is wrong, mark the scenario FAILED and note
   the defect for Discovery — never tweak a script to force a pass.
+
+## Pre-Execution
+
+- `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -Require Memory,Tools,Scripts`.
+  If `ok` is false, STOP and tell the user to run `/testkit.discover` first.
+- Load `.testkit/memory/constitution.md`. Principles V (never edit a script to
+  pass), VI (gate on blocked), and VII (faithful reporting) govern this stage.
 
 ## Execution Steps
 

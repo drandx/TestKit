@@ -1,9 +1,11 @@
 ---
-description: Validate that every tool required by the test memory is reachable, then write one small independent PowerShell script per manual step. Non-interactive.
+description: 'Validate that every tool required by the test memory is reachable, then write one small independent PowerShell script per manual step. Non-interactive.'
+tools: ['read', 'search', 'edit', 'execute']
 handoffs:
   - label: Run Test Scenarios
     agent: testkit.run
     prompt: tools-report.md and scripts are ready and NO scenario is BLOCKED. Execute every runnable scenario against its oracle.
+    send: false
 ---
 
 ## User Input
@@ -29,6 +31,13 @@ PowerShell script.
   list, even if it seems related. This is the most important rule of this agent.
 - **NO SOPHISTICATION**: one `.ps1` per manual step, runnable standalone, no
   frameworks, no orchestration.
+
+## Pre-Execution
+
+- `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -Require Memory`.
+  If `ok` is false, STOP and tell the user to run `/testkit.clarify` first.
+- Load `.testkit/memory/constitution.md`. Principles III (scenario-scoped tools),
+  V (honest minimal scripts), and VI (gate on blocked) govern this stage.
 
 ## Execution Steps
 

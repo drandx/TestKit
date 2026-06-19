@@ -1,9 +1,11 @@
 ---
-description: Front door for the TestKit integration-testing workflow. Explains the pipeline and hands off to the first stage. Owns no logic and runs nothing itself.
+description: 'Front door for the TestKit integration-testing workflow. Explains the pipeline and hands off to the first stage. Owns no logic and runs nothing itself.'
+tools: ['read']
 handoffs:
   - label: Start — Generate Test Scenarios
     agent: testkit.scenarios
     prompt: Analyze this feature spec and write the integration test scenarios to test_cases.csv.
+    send: false
 ---
 
 ## User Input

@@ -1,9 +1,11 @@
 ---
-description: Interactively clarify how a human runs these tests manually, capturing inputs and pass/fail oracles into a durable memory file. The ONLY user-facing TestKit agent.
+description: 'Interactively clarify how a human runs these tests manually, capturing inputs and pass/fail oracles into a durable memory file. The ONLY user-facing TestKit agent.'
+tools: ['read', 'search', 'edit']
 handoffs:
   - label: Discover Tools & Generate Scripts
     agent: testkit.discover
     prompt: test-memory.md is written. Validate the scenario-scoped tools_required and generate one PowerShell script per manual step.
+    send: false
 ---
 
 ## User Input
@@ -31,10 +33,16 @@ anything.
   procedure actually invokes it. This is the rule that stops downstream agents
   provisioning tools no test needs.
 
+## Pre-Execution
+
+- `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -Require Scenarios`.
+  If `ok` is false, STOP and tell the user to run `/testkit.scenarios` first.
+- Load `.testkit/memory/constitution.md`. Principles III (scenario-scoped tools)
+  and IV (one interactive stage) govern this stage.
+
 ## Execution Steps
 
-1. Read `<spec-dir>/test_cases.csv`. If missing, STOP and tell the user to run
-   `/testkit.scenarios` first.
+1. Read `<spec-dir>/test_cases.csv` (path from the prerequisite check).
 2. Group scenarios by the *manual procedure* they share.
 3. For each distinct procedure, ask the user in focused batches, with follow-ups
    driven by their answers:

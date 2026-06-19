@@ -1,9 +1,11 @@
 ---
-description: Analyze an implemented feature spec and produce the integration test scenarios as a CSV. Pure analysis — no user interaction, no tool execution.
+description: 'Analyze an implemented feature spec and produce the integration test scenarios as a CSV. Pure analysis — no user interaction, no tool execution.'
+tools: ['read', 'search', 'edit']
 handoffs:
   - label: Clarify Manual Test Procedure
     agent: testkit.clarify
     prompt: The test_cases.csv is written. Clarify with me how each scenario is run manually and capture the oracles.
+    send: false
 ---
 
 ## User Input
@@ -28,6 +30,16 @@ automated.
 - **NO EXECUTION**: do not run tools or scripts.
 - **DERIVE, DON'T INVENT**: describe behavior, not the mechanics of how a human
   drives it — that is the Clarifier's job.
+
+## Pre-Execution
+
+- Load `.testkit/memory/constitution.md`. Principle I (observable oracles) governs
+  this stage; a vague `expected_result` is a CRITICAL violation to fix, not ship.
+- Resolve the spec directory and persist it for downstream stages:
+  `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -FeatureDir <spec-dir>`.
+  After writing the CSV, record the path to `.testkit/feature.json`
+  (`{ "feature_directory": "<spec-dir>" }`) so later agents resolve it without
+  re-deriving it.
 
 ## Execution Steps
 
