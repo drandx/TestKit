@@ -34,8 +34,10 @@ input artifact exists on disk.
    `test_cases.csv` was written.
 2. Run `/testkit.clarify`. This stage talks to the user — do not auto-answer on
    their behalf. Wait for `test-memory.md`.
-3. Run `/testkit.discover`. Read `tools-report.md`. If scenarios are BLOCKED,
-   surface them to the user and ask whether to proceed with the runnable subset.
+3. Run `/testkit.discover`. Read `tools-report.md`. If **any** scenario is
+   BLOCKED, halt immediately. Print the full list of blocked scenario ids and
+   the reason each tool is unreachable. Do NOT proceed to `/testkit.run`. The
+   run resumes only after the user resolves the blocker and re-runs Discovery.
 4. Run `/testkit.run`. Present `test-results.md`.
 
 ## Guardrails
