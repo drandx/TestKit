@@ -1,7 +1,7 @@
 ---
 description: 'Front door for the TestKit integration-testing workflow. Explains the pipeline and hands off to the first stage.'
 name: 'TestKit'
-model: 'claude-sonnet-4-5'
+model: 'claude-opus-4-8'
 tools:
   - read
 handoffs:

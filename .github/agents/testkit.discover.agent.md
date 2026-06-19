@@ -1,7 +1,7 @@
 ---
 description: 'Validate every required tool is reachable and write one independent PowerShell script per manual step. Non-interactive — questions are blockers, not prompts.'
 name: 'TestKit Discover'
-model: 'claude-sonnet-4-5'
+model: 'claude-opus-4-8'
 tools:
   - read
   - search
@@ -52,8 +52,10 @@ scripts.
 
 1. Read `<spec-dir>/test-memory.md`. Build the todo list from the union of
    `tools_required` across all scenarios. Never add a tool not listed there.
-2. Probe each tool one by one — version check, auth check, endpoint reachable,
-   path exists. Record: ✅ reachable / ⚠️ needs-auth / ❌ unreachable.
+2. Probe all tools **concurrently** — dispatch all version/auth/endpoint/path
+   checks in parallel, do not wait for one before starting the next. Record per
+   tool: ✅ reachable / ⚠️ needs-auth / ❌ unreachable. Collect all results
+   before proceeding to step 3.
 3. For every manual step in each scenario's `procedure`, write ONE script under
    `<spec-dir>/scripts/` using `.testkit/scripts/powershell/_template.ps1`.
    One script = one manual action. No orchestration, no frameworks.

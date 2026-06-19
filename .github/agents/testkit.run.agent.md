@@ -1,7 +1,7 @@
 ---
 description: 'Execute every test scenario by running Discovery scripts in order, evaluate against oracles, and write a results report. Non-interactive.'
 name: 'TestKit Run'
-model: 'claude-sonnet-4-5'
+model: 'claude-opus-4-8'
 tools:
   - read
   - edit
@@ -26,7 +26,9 @@ You are the terminal stage of the pipeline.
 
 - Load all upstream artifacts and validate they are present.
 - Skip BLOCKED scenarios — report them as blocked, not failed.
-- Execute each runnable scenario's scripts in documented order.
+- Execute runnable scenarios concurrently by default (cap: 5); scenarios sharing
+  a `setup` group run sequentially within that group.
+- Execute each scenario's scripts in the order documented in `tools-report.md`.
 - Evaluate each result against the scenario's recorded oracle.
 - Always run teardown, even on failure.
 - Write `test-results.md` reporting every scenario faithfully.
@@ -43,17 +45,23 @@ You are the terminal stage of the pipeline.
 
 ### Steps
 
-1. Read `test_cases.csv`, `test-memory.md`, `tools-report.md`, and `scripts/*.ps1`.
+1. Read `test_cases.csv`, `test-memory.md`, and `tools-report.md` to load
+   scenario metadata, oracles, and the run order for each scenario's scripts.
+   **Do NOT read the `.ps1` file bodies** — you only need their paths (from
+   `tools-report.md`) to execute them. Loading script source adds context
+   cost with zero benefit.
 2. For each scenario marked **BLOCKED** in `tools-report.md`, record it as
    BLOCKED (not failed) with the blocking reason.
-3. For each runnable scenario, in order:
+3. Group runnable scenarios by their `setup` value. Scenarios that share a
+   `setup` run **sequentially** within that group. Scenarios with distinct or
+   empty `setup` values run **concurrently** across groups, up to a cap of 5
+   simultaneous scenarios to avoid environment contention.
+4. For each runnable scenario (within its sequencing group):
    - Run `setup`.
-   - Run the scenario's scripts in the order documented in `tools-report.md`.
+   - Execute the scenario's scripts in the order documented in `tools-report.md`.
    - Evaluate the script exit code and printed value against the scenario's
      `oracle` in `test-memory.md`.
    - Run `teardown` regardless of outcome.
-4. Independent scenarios (no shared setup/state) may run concurrently. Scenarios
-   sharing setup run sequentially — use the `setup` field to decide.
 
 ## Output Format
 

@@ -1,7 +1,7 @@
 ---
 description: 'Interactively clarify how a human runs each test scenario manually, capturing inputs and pass/fail oracles into a durable memory file.'
 name: 'TestKit Clarify'
-model: 'claude-sonnet-4-5'
+model: 'claude-opus-4-8'
 tools:
   - read
   - search

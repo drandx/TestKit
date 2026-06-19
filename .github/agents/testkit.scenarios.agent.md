@@ -1,7 +1,7 @@
 ---
 description: 'Analyze an implemented feature spec and produce integration test scenarios as a CSV. Non-interactive — no user questions, no script execution.'
 name: 'TestKit Scenarios'
-model: 'claude-sonnet-4-5'
+model: 'claude-opus-4-8'
 tools:
   - read
   - search
