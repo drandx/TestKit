@@ -26,14 +26,17 @@ defined upstream. You do not invent new steps or new tools.
 
 ## Pre-Execution
 
-- `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -Require Memory,Tools,Scripts`.
+- `pwsh .testkit/scripts/powershell/check-prerequisites.ps1 -Require Memory,Tools,WorkScripts`.
   If `ok` is false, STOP and tell the user to run `/testkit.discover` first.
 - Load `.testkit/memory/constitution.md`. Principles V (never edit a script to
   pass), VI (gate on blocked), and VII (faithful reporting) govern this stage.
 
 ## Execution Steps
 
-1. Read `test_cases.csv`, `test-memory.md`, `tools-report.md`, and `scripts/*.ps1`.
+1. Read `test_cases.csv`, `test-memory.md`, and `tools-report.md` to load scenario
+   metadata, oracles, and the run order. Script paths in `tools-report.md` point
+   to `.testkit/work/<feature>/scripts/` — execute them from there. Do NOT read
+   the `.ps1` bodies; only the paths matter for execution.
    Skip scenarios marked **BLOCKED** and record them as blocked, not failed.
 2. For each runnable scenario id, in order: run `setup`; run the scenario scripts
    in documented order; evaluate exit code + printed value against the `oracle`;

@@ -14,3 +14,4 @@
 .testkit/templates/test-results.md
 .testkit/scripts/powershell/check-prerequisites.ps1
 .testkit/scripts/powershell/_template.ps1
+.gitignore

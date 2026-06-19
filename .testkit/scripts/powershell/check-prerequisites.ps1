@@ -23,7 +23,7 @@
 [CmdletBinding()]
 param(
     [string] $FeatureDir,
-    [ValidateSet('Scenarios', 'Memory', 'Tools', 'Scripts', 'Results')]
+    [ValidateSet('Scenarios', 'Memory', 'Tools', 'Results', 'Work', 'WorkScripts')]
     [string[]] $Require = @()
 )
 
@@ -40,12 +40,17 @@ if (-not $FeatureDir -or -not (Test-Path $FeatureDir)) {
     exit 1
 }
 
+# Derive the feature name from the feature directory path for the work dir.
+$featureName = Split-Path $FeatureDir -Leaf
+$workDir     = Join-Path '.testkit' (Join-Path 'work' $featureName)
+
 $paths = [ordered]@{
-    Scenarios = Join-Path $FeatureDir 'test_cases.csv'
-    Memory    = Join-Path $FeatureDir 'test-memory.md'
-    Tools     = Join-Path $FeatureDir 'tools-report.md'
-    Scripts   = Join-Path $FeatureDir 'scripts'
-    Results   = Join-Path $FeatureDir 'test-results.md'
+    Scenarios   = Join-Path $FeatureDir 'test_cases.csv'
+    Memory      = Join-Path $FeatureDir 'test-memory.md'
+    Tools       = Join-Path $FeatureDir 'tools-report.md'
+    Results     = Join-Path $FeatureDir 'test-results.md'
+    Work        = $workDir
+    WorkScripts = Join-Path $workDir 'scripts'
 }
 
 $missing = @()

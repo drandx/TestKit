@@ -11,11 +11,16 @@ Every scenario MUST have an observable pass/fail oracle — a status, record sta
 message, HTTP code, or row count. A scenario whose expected result is vague
 ("works correctly") is a CRITICAL defect for TestKit Scenarios to fix.
 
-## II. Files are the contract (MUST)
+## II. Files are the contract — committed artifacts only (MUST)
 
 Each stage MUST read its inputs from the committed artifact and write its output
 to the next artifact. State MUST NOT be carried forward only in conversation.
 The artifact schema is fixed even when content differs across specs.
+
+Generated working files (scripts, queue payloads, SQL, scratch) MUST be written
+to `.testkit/work/<feature>/` and are gitignored — they are never committed.
+They are mechanically re-derived from the committed artifacts and may be
+re-generated at any time by re-running the producing stage.
 
 ## III. Scenario-scoped tools (MUST)
 
