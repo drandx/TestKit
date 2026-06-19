@@ -7,6 +7,35 @@ the stages chain through declared **handoffs** (not a controller), with **files 
 the contract** between them. The artifacts, not conversation memory, carry state
 forward — which keeps each run deterministic across different specs.
 
+## Install into a project
+
+TestKit is just files Copilot CLI reads, so installing means copying the agents
+and the `.testkit/` scaffold into your project root.
+
+**Remote (no clone):**
+
+```powershell
+# PowerShell
+irm https://raw.githubusercontent.com/drandx/testkit/main/install.ps1 | iex
+```
+
+```bash
+# bash
+curl -fsSL https://raw.githubusercontent.com/drandx/testkit/main/install.sh | bash
+```
+
+**From a clone:**
+
+```bash
+git clone https://github.com/drandx/testkit
+./testkit/install.ps1 -Target /path/to/your-project      # or install.sh --target ...
+```
+
+Re-running is safe — existing files are skipped unless you pass `-Force` /
+`--force`. The file list lives in `.testkit/manifest.txt` (single source of truth
+for both installers). After installing, open the project in Copilot CLI and run
+`/testkit.scenarios <spec-dir>`.
+
 ## Entry point
 
 The workflow starts by invoking the first stage directly:
@@ -88,3 +117,26 @@ etc.); the file contract makes the stages composable either way.
 | clarify | intent / oracles | **yes** | test-memory.md | discover |
 | discover | capability / scripts | no | tools-report.md, scripts/*.ps1 | run (gated) |
 | run | execution | no | test-results.md | — (terminal) |
+
+## Using it on a real project & giving feedback
+
+The fastest improvement loop while TestKit is young:
+
+1. Install into a real repo (above) and run the pipeline on one real feature.
+2. The artifacts it produces — `test_cases.csv`, `test-memory.md`,
+   `tools-report.md`, `test-results.md` — **are** the feedback. They are small,
+   diffable, and committed to your repo, so when a stage gets something wrong the
+   evidence is right there in the file.
+3. Capture what went wrong against the stage that owns it (see the table) — e.g.
+   "Discovery validated a tool no scenario used" is a Principle III violation in
+   `testkit.discover.agent.md`. Tightening the agent prompt or the constitution is
+   usually the fix.
+4. Open an issue on `drandx/testkit` (or paste the offending artifact back into a
+   session) and we iterate on that one agent file. Because each agent is isolated
+   and the contract is files, changes are low-blast-radius.
+
+### Versioning the install
+
+`install.*` pin a `-Ref`/`--ref` (default `main`). Tag releases (`v0.1`, …) so a
+project can pin a known-good TestKit and upgrade deliberately by re-running the
+installer with `-Force` against a new ref.

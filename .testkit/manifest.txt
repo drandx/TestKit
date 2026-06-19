@@ -1,0 +1,15 @@
+# Files TestKit installs into a target project, one path per line.
+# Both install.ps1 and install.sh read this manifest, so the file list lives in
+# exactly one place.
+.github/agents/testkit.agent.md
+.github/agents/testkit.scenarios.agent.md
+.github/agents/testkit.clarify.agent.md
+.github/agents/testkit.discover.agent.md
+.github/agents/testkit.run.agent.md
+.testkit/memory/constitution.md
+.testkit/templates/test_cases.csv
+.testkit/templates/test-memory.md
+.testkit/templates/tools-report.md
+.testkit/templates/test-results.md
+.testkit/scripts/powershell/check-prerequisites.ps1
+.testkit/scripts/powershell/_template.ps1
