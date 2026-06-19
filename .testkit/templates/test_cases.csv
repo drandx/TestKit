@@ -1,0 +1,2 @@
+id,scenario,preconditions,steps,expected_result,priority,category
+TC-001,Short scenario name,What must be true before,Brief ordered steps separated by semicolons,Observable expected outcome (status/record/message/code),P1,happy-path
