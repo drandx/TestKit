@@ -1,9 +1,10 @@
 # TestKit
 
 A speckit-style toolkit for **integration testing** a feature spec. Like speckit,
-TestKit is not a set of long-lived subagents — it is a sequence of slash-command
-prompts run by a single agent (initially **GitHub Copilot CLI**), with **files as
-the contract** between stages. The artifacts, not conversation memory, carry
+TestKit ships as **Copilot CLI agent files** (`.github/agents/*.agent.md`) — the
+same artifact speckit installs for the CLI. Each stage is a `/`-invokable agent;
+the orchestrator delegates to them in sequence, with **files as the contract**
+between stages. The artifacts, not conversation memory, carry
 state forward — which keeps each run deterministic across different specs.
 
 ## Pipeline
@@ -42,7 +43,7 @@ stage.
 ## Layout
 
 ```
-.github/prompts/         the four stage commands + orchestrator (Copilot CLI prompt files)
+.github/agents/          the four stage agents + orchestrator (Copilot CLI agent files)
 .testkit/templates/      artifact templates (the contract)
 .testkit/scripts/powershell/  _template.ps1 for per-step scripts
 ```
